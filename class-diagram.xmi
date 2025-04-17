@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_model_1" name="ClassDiagram">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Permission" name="Permission">
+      <ownedAttribute xmi:id="_Permission_name" name="name" type="_String"/>
+      <ownedAttribute xmi:id="_Permission_guard_name" name="guard_name" type="_String"/>
+    </packagedElement>
+    
+    <packagedElement xmi:type="uml:Class" xmi:id="_Role" name="Role">
+      <ownedAttribute xmi:id="_Role_name" name="name" type="_String"/>
+      <ownedAttribute xmi:id="_Role_guard_name" name="guard_name" type="_String"/>
+    </packagedElement>
+    
+    <packagedElement xmi:type="uml:Class" xmi:id="_User" name="User">
+      <ownedAttribute xmi:id="_User_first_name" name="first_name" type="_String"/>
+      <ownedAttribute xmi:id="_User_last_name" name="last_name" type="_String"/>
+      <ownedAttribute xmi:id="_User_email" name="email" type="_String"/>
+      <ownedAttribute xmi:id="_User_status" name="status" type="_Enum"/>
+      <ownedAttribute xmi:id="_User_password" name="password" type="_String"/>
+      <ownedAttribute xmi:id="_User_image" name="image" type="_String"/>
+    </packagedElement>
+    
+    <!-- Relations entre classes -->
+    <packagedElement xmi:type="uml:Association" xmi:id="_Permission_Role">
+      <memberEnd xmi:idref="_Permission_role"/>
+      <memberEnd xmi:idref="_Role_permission"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_Permission_role" type="_Permission" association="_Permission_Role">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Permission_role_lower" value="0"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Permission_role_upper" value="-1"/>
+      </ownedEnd>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_Role_permission" type="_Role" association="_Permission_Role">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Role_permission_lower" value="0"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Role_permission_upper" value="-1"/>
+      </ownedEnd>
+    </packagedElement>
+    
+    <!-- Types de données primitifs -->
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_String" name="String"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Integer" name="Integer"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Double" name="Double"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_Boolean" name="Boolean"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_Enum" name="Enum"/>
+  </uml:Model>
+</xmi:XMI>

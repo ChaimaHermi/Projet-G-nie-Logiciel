@@ -6,16 +6,12 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseConnectionSingleton
 {
-    private static $instance = null; // Initialisation à null
-
-    // Connexion à la base de données
-    private $connection;
+    private static $instance = null; // Instance unique
 
     // Le constructeur est privé
     private function __construct()
     {
-        // Initialisation de la connexion à la base de données avec Laravel
-        $this->connection = DB::connection();
+        // Laravel gère déjà la connexion, nous n'avons pas besoin de la stocker
     }
 
     // Empêche le clonage de l'instance
@@ -31,13 +27,13 @@ class DatabaseConnectionSingleton
         if (self::$instance === null) {
             self::$instance = new self();
         }
+
         return self::$instance;
     }
 
-    // Retourne la connexion
+    // Retourne la connexion Laravel (pas besoin de la stocker manuellement)
     public function getConnection()
     {
-        echo 'Connection is valid';
-        return $this->connection;
+        return DB::connection();  // Laravel gère l'unicité de la connexion
     }
 }
