@@ -8,36 +8,60 @@ use App\Factories\LocationCreator;
 class LocationSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Exécute le Seeder pour créer des entités de type Cluster, Facility, Building, Section, et Office.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
-        // Nombre d'éléments à créer par niveau
-        $clusterCount = 3;
-        $facilityPerCluster = 2;
-        $buildingPerFacility = 2;
-        $sectionPerBuilding = 3;
-        $officePerSection = 4;
+        // Créer un certain nombre de clusters
+        for ($i = 1; $i <= 3; $i++) {
+            // Créer un cluster
+            $cluster = LocationCreator::create('cluster', [
+                'name' => "Cluster $i",
+                'description' => "Description du Cluster $i",
+                'address' => "Adresse du Cluster $i",
+                'latitude' => mt_rand(-90, 90),
+                'longitude' => mt_rand(-180, 180),
+            ]);
 
-        for ($i = 0; $i < $clusterCount; $i++) {
-            // Créer un Cluster
-            $cluster = LocationCreator::create('cluster');
+            // Créer des facilities pour chaque cluster
+            for ($j = 1; $j <= 2; $j++) {
+                $facility = LocationCreator::create('facility', [
+                    'name' => "Facility $i-$j",
+                    'description' => "Description de la Facility $i-$j",
+                    'address' => "Adresse de la Facility $i-$j",
+                    'latitude' => mt_rand(-90, 90),
+                    'longitude' => mt_rand(-180, 180),
+                ], $cluster);
 
-            for ($j = 0; $j < $facilityPerCluster; $j++) {
-                // Créer une Facility liée au Cluster
-                $facility = LocationCreator::create('facility', [], $cluster);
+                // Créer des buildings pour chaque facility
+                for ($k = 1; $k <= 2; $k++) {
+                    $building = LocationCreator::create('building', [
+                        'name' => "Building $i-$j-$k",
+                        'description' => "Description du Building $i-$j-$k",
+                        'address' => "Adresse du Building $i-$j-$k",
+                        'latitude' => mt_rand(-90, 90),
+                        'longitude' => mt_rand(-180, 180),
+                    ], $facility);
 
-                for ($k = 0; $k < $buildingPerFacility; $k++) {
-                    // Créer un Building lié à la Facility
-                    $building = LocationCreator::create('building', [], $facility);
+                    // Créer des sections pour chaque building
+                    for ($l = 1; $l <= 2; $l++) {
+                        $section = LocationCreator::create('section', [
+                            'name' => "Section $i-$j-$k-$l",
+                            'description' => "Description de la Section $i-$j-$k-$l",
+                            'address' => "Adresse de la Section $i-$j-$k-$l",
+                            'latitude' => mt_rand(-90, 90),
+                            'longitude' => mt_rand(-180, 180),
+                        ], $building);
 
-                    for ($l = 0; $l < $sectionPerBuilding; $l++) {
-                        // Créer une Section liée au Building
-                        $section = LocationCreator::create('section', [], $building);
-
-                        for ($m = 0; $m < $officePerSection; $m++) {
-                            // Créer un Office lié à la Section
-                            LocationCreator::create('office', [], $section);
+                        // Créer des offices pour chaque section
+                        for ($m = 1; $m <= 3; $m++) {
+                            LocationCreator::create('office', [
+                                'name' => "Office $i-$j-$k-$l-$m",
+                                'description' => "Description de l'Office $i-$j-$k-$l-$m",
+                                'office_type_id' => mt_rand(1, 5), // ID aléatoire de type de bureau
+                            ], $section);
                         }
                     }
                 }
