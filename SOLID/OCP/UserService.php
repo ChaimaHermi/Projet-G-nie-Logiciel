@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\FileUploader;
 
-class UserService
+class UserService implements UserServiceInterface
 {
     use FileUploader;
 
